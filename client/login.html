@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Balıkesir Üniversitesi - Dosya Transfer Aracı</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link href="all.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
+        <div class="container-fluid p-0 d-inline">
+          <img
+            src="assets/header-tr-son.jpg"
+            class="d-inline-block align-top img-fluid"
+            alt="Logo"
+          />
+        </div>
+      </nav>
+
+      <div class="d-flex justify-content-center">
+        <form id="loginForm" class="m-5 w-25" enctype="multipart/form-data">
+          <div class="form-group my-4">
+            <label for="loginTC" class="h5" id="loginTCLabel"
+              >T.C. Kimlik Numarası</label
+            >
+            <div class="col">
+              <input
+                type="number"
+                class="form-control my-2"
+                id="loginTC"
+                aria-describedby="tcno"
+                placeholder="T.C. Kimlik Numaranızı Giriniz"
+              />
+              <div id="tcNoError" class="invalid-feedback">
+                Lütfen 11 karakter giriniz.
+              </div>
+            </div>
+          </div>
+          <div class="form-group my-4">
+            <label for="loginPswdLabel" class="h5" id="loginPswdLabel"
+              >Şifre</label
+            >
+            <div class="col">
+              <input
+                type="password"
+                class="form-control my-2"
+                id="loginPswd"
+                placeholder="Şifrenizi Giriniz"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            id="submit-btn"
+            class="btn btn-primary my-3"
+            onclick="Submit()"
+            disabled
+          >
+            Giriş Yap
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      async function Submit() {
+        const tcNo = document.querySelector("#loginTC").value;
+        const password = document.querySelector("#loginPswd").value;
+
+        const data = await fetch("http://localhost:5500/api/login", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            tcno: tcNo,
+            password,
+          }),
+        });
+        const response = await data.json();
+
+        if (response.token) console.log(data);
+        document.cookie = "token" + "=" + response.token;
+        console.log("html sayfasında");
+        if (response.token && response.error === false) {
+          window.location.href = "index.html";
+        }
+      }
+    </script>
+    <script src="loginScript.js"></script>
+  </body>
+</html>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+  integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+  integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+  crossorigin="anonymous"
+></script>

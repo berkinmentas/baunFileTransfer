@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id         Int      @id @default(autoincrement())
+  role       String   @default("user") @db.VarChar(255)
+  tcno       String   @db.VarChar(11)
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+}
+
+model uploadform {
+  id               Int      @id @default(autoincrement())
+  role             String   @db.VarChar(100)
+  tcNo             String   @db.VarChar(11)
+  adSoyad          String   @db.VarChar(255)
+  facultySelect    String   @db.VarChar(255)
+  departmentSelect String   @db.VarChar(255)
+  fileUpload       String   @db.VarChar(1000)
+  created_at       DateTime @default(now()) @db.Timestamp(0)
+  updated_at       DateTime @default(now()) @db.Timestamp(0)
+}
