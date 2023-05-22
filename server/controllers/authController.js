@@ -123,6 +123,7 @@ const userAuth = async (req, res, next) => {
         });
       }
       req.role = decoded.role;
+      req.tcNo = decoded.tcNo;
       next();
     });
   } catch {

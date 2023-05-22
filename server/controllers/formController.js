@@ -9,7 +9,7 @@ const form = async (req, res) => {
     const { tcNo, adSoyad, facultySelect, departmentSelect } = req.body;
     const { path } = req.file;
     console.log(tcNo, adSoyad, facultySelect, departmentSelect, path);
-
+    console.log(req.tcNo);
     // if (header) {
 
     // } else {
@@ -30,6 +30,11 @@ const form = async (req, res) => {
       return res.status(400).json({
         error: true,
         message: "Form gönderilirken hata oluştu.",
+      });
+    } else if (req.tcNo != tcNo) {
+      return res.status(403).json({
+        error: true,
+        message: "T.C. Kimlik Numaranız Form verisiyle uyuşmuyor.",
       });
     } else {
       const tokenDecode = jwt.decode(header);
