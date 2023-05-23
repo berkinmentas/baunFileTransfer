@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="userList" style="margin: 15px"></ul>
+    <div id="data"></div>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", getData);
+    function displayBackendData(getData) {
+      const userListElement = document.getElementById("userList");
+
+      getData.forEach((user) => {
+        console.log(user);
+        const listItem = document.createElement("li");
+        listItem.textContent = `ID: ${user.id},TC No: ${user.tcNo}, Ad Soyad: ${user.adSoyad}, Fakülte: ${user.facultySelect}, Bölüm: ${user.departmentSelect}, Dosya: ${user.fileUpload} Oluşturulma Tarihi: ${user.created_at}`;
+        userListElement.appendChild(listItem);
+      });
+    }
+
+    async function getData() {
+      const cookies = document.cookie;
+      const cookieArray = cookies.split("; ");
+
+      let token;
+      for (let i = 0; i < cookieArray.length; i++) {
+        const [name, value] = cookieArray[i].split("=");
+        if (name === "token") {
+          token = value;
+          break;
+        }
+      }
+      const roles = localStorage.getItem("user");
+      const bodyData = { role: roles };
+      // console.log(role);
+      const data = await fetch("http://localhost:5500/api/form-data", {
+        method: "POST",
+        headers: { Authorization: token, "content-type": "application/json" },
+        body: JSON.stringify(bodyData),
+      });
+
+      const response = await data.json();
+      displayBackendData(response.data);
+    }
+  </script>
+  <script src="tokenCheck.js"></script>
+</html>
