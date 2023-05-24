@@ -25,19 +25,31 @@ const ResetPassword = async (req, res) => {
     const hashPassword = await bcrypt.hash(newPassword, 10);
 
     if (!passwordCheck) {
+<<<<<<< HEAD
       return res.status(400).json({
+=======
+      return res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
         error: true,
         message: "Mevcut şifrenizi yanlış giriniz.",
       });
     }
     if (confirmPassword != newPassword) {
+<<<<<<< HEAD
       return res.status(400).json({
+=======
+      return res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
         error: true,
         message: "Şifreler eşleşmiyor.",
       });
     }
     if (comparePass) {
+<<<<<<< HEAD
       return res.status(400).json({
+=======
+      return res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
         error: true,
         message: "Lütfen mevcut şifrenizden farklı bir şifre giriniz.",
       });
@@ -64,7 +76,11 @@ const ResetPassword = async (req, res) => {
       });
     }
   } catch (err) {
+<<<<<<< HEAD
     return res.status(400).json({
+=======
+    return res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
       error: true,
       message: "Bir sorun oluştu.",
       data: err,

@@ -58,14 +58,22 @@ const login = async (req, res) => {
       },
     });
     if (error) {
+<<<<<<< HEAD
       res.status(400).json({
+=======
+      res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
         error: true,
         message: error.message,
       });
       return;
     }
     if (!userCheck) {
+<<<<<<< HEAD
       res.status(400).json({
+=======
+      res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
         error: true,
         message: "Kullanıcı adı veya şifre hatalı",
       });
@@ -77,7 +85,11 @@ const login = async (req, res) => {
       userCheck.password
     );
     if (!passwordValid) {
+<<<<<<< HEAD
       return res.status(400).json({
+=======
+      return res.status(404).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
         error: true,
         message: "Kullanıcı adı veya şifre hatalı.",
       });
@@ -93,6 +105,13 @@ const login = async (req, res) => {
       maxAge: 1000,
       httpOnly: true,
     });
+<<<<<<< HEAD
+=======
+    // res.cookie("token", token, 200);
+    //
+    // res.setHeader("Authorization", `Bearer ${token}`);
+
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
     return res.json({
       error: false,
       message: "Login successful.",
@@ -107,11 +126,21 @@ const login = async (req, res) => {
 };
 
 const userAuth = async (req, res, next) => {
+<<<<<<< HEAD
   const token = req.headers.authorization;
   try {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.status(401).json({
+=======
+  // const token = req.cookies.bau_auth_token;
+  const token = req.headers.authorization;
+  // console.log(token);
+  try {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({
+>>>>>>> 2abcdf1271d9face8309d4b6ab7aec05b4e29967
           error: true,
           message: "Invalid token",
         });
